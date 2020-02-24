@@ -1,0 +1,43 @@
+WE WILL BE GIVING THESE OUT AT SUPERCON!!!
+Won't be making many because we are broke college students, but we will have some. Also if anyone wou
+
+
+
+
+
+
+Hey Mike,
+
+I really don't know how to put this, so I'll just say what I'm doing and what I need help with.
+
+At the beginning of the year I decided to make a TIL311 replica. I didn't really have a lot of time due to school and work. After the Supercon announcement, I began
+work on this wanting to make it, along with a Shitty Add-On carrier board, for Supercon. So, it would be a SAO that would use a TIL311 (original or clone/replica) as a display.
+
+While this would be awesome, I've run into a roadblock. I want to be able to give both the SAO carrier board and the TIL311 replica out at Supercon, but as a college student I don't
+have the the money to just make a ton of these. Even just making about 200 TIL311s is proving to be quite expensive for me. And this is buying as much as I can in quantity. I already
+have working prototypes of the TIL311s https://hackaday.io/project/166086-diytil311 but have not even looked at the SAO as I am well outside the amount of money I would like to spend.
+
+I would like your advice on what you think my options are. Yes, some sort of sponsorship would be awesome if possible, however anything will help at this point.
+
+Thanks,
+Jacob
+
+Programming:
+
+
+avrdude -c <PROGRAMMER> -p <CHIP> -P <PORT> -U <memtype>:r|w|v:<filename>[:format]:
+
+
+
+
+avr-gcc -mmcu=atmega328p bootloader.c -o bootloader.o
+avr-objcopy -j .text -j .data -O ihex bootloader.o bootloader.hex
+avrdude -c avrisp -b 19200 -p ATMEGA328P -P <PORT> -e -U lfuse:w:0xee:m -U hfuse:w:0xd8:m -U efuse:w:0xfd:m
+avrdude -c avrisp -b 19200 -p ATMEGA328P -P <PORT> -e -U flash:w:bootloader.hex -U lock:w:0x0F:m
+
+
+avr-gcc -mmcu=atmega328p leds.c -o leds.out
+avr-objcopy -j .text -j .data -O ihex leds.out leds.hex
+avrdude -c avrisp -b 19200 -p ATMEGA328P -P <PORT> -U flash:w:myprogram.hex
+
+
